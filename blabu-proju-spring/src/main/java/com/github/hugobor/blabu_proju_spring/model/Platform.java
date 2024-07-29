@@ -1,8 +1,5 @@
 package com.github.hugobor.blabu_proju_spring.model;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +14,7 @@ import jakarta.persistence.Table;
  * Pc Retrô (Aminga, Mac Clássio, DOS).
  */
 @Entity
-@Table(indexes = @Index(name = "platform_idx_simple_name", columnList = "simpleName"))
+@Table(indexes = @Index(name = "platform_idx_simple_name", columnList = "simpleName", unique = true))
 public class Platform {
 	
 	@Id
@@ -31,7 +28,7 @@ public class Platform {
 	 *  ps2 → PlayStation 2
 	 * Usado como chave secundário, para facilitar consultas.
 	 */
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String simpleName;
 	
 	private String name;
