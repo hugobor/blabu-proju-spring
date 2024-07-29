@@ -29,11 +29,12 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-task.jar {
+tasks.jar {
     manifest {
         attributes["Main-Class"] = "com.github.hugobor.blabu_proju_spring.BlabuProjuSpringApplication"
     }
 }
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
