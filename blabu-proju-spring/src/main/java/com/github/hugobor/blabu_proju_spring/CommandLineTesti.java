@@ -1,13 +1,17 @@
 package com.github.hugobor.blabu_proju_spring;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.github.hugobor.blabu_proju_spring.model.Game;
+import com.github.hugobor.blabu_proju_spring.model.GameRepository;
 import com.github.hugobor.blabu_proju_spring.model.Platform;
 import com.github.hugobor.blabu_proju_spring.model.PlatformRepository;
+import com.github.hugobor.blabu_proju_spring.model.PlayState;
 
 
 @Component
@@ -15,11 +19,16 @@ public class CommandLineTesti implements CommandLineRunner {
 	
 	@Autowired
 	private PlatformRepository platformRepository;
+	
+	@Autowired
+	private GameRepository gameRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("EU EXISTO!!!!!!!!! EU EXISTI!!!!!!!!!");
-		System.out.println("como lágrimas na chuva...........");
+		Consumer<Object> p = System.out::println;
+		
+		p.accept("EU EXISTO!!!!!!!!! EU EXISTI!!!!!!!!!");
+		p.accept("como lágrimas na chuva...........");
 		
 		var repo = platformRepository;
 		
@@ -33,16 +42,41 @@ public class CommandLineTesti implements CommandLineRunner {
 		);
 		repo.saveAll(plats);
 		
-		System.out.println(plats);
-		System.out.println(repo.findBySimpleName("mega-drive"));
-		System.out.println(repo.findBySimpleName("ps1"));
-		System.out.println(repo.findBySimpleName("não-existo-ERRO!!!"));
+		var megaDrive = plats.get(0);
+		var snes = plats.get(1);
+		var pc = plats.get(2);
+		var ps1 = plats.get(3);
+		var nds = plats.get(4);
+		//var msx = plats.get(5);
+		
+		
+		
+		p.accept(plats);
+		p.accept(repo.findBySimpleName("mega-drive"));
+		p.accept(repo.findBySimpleName("ps1"));
+		p.accept(repo.findBySimpleName("não-existo-ERRO!!!"));
 		
 		var msx = repo.findBySimpleName("msx").get();
 		msx.setType("Computador Retrô");
 		repo.save(msx);
 		
-		System.out.println(repo.findAll());
+		p.accept(repo.findAll());
+		
+		var games = List.of(
+				new Game("Magical Pop'n", "Platformer, Side-Scroller, MetroidVania, Action, Adventure", 1995, 5, "ROM", PlayState.FINISHED, snes), 
+				new Game("Blood", "FPS, Action, Retro FPS, First Person", 1997, null, "Digital", PlayState.RETIRED, pc),
+				new Game("Half-Life 2", "FPS, Action, First Person", 2004, 5, "Digital", PlayState.COMPLETED, pc),
+				new Game("BioShock", "FPS, Action, Imersive Sim, First Person", 2007, 5, "DVD", PlayState.FINISHED, pc),
+				new Game("Sonic the Hedgehog 3 & Knuckles", "Platformer, Side-Scroller, Action", 1997, 5, "Cartrigde", PlayState.FINISHED, megaDrive),
+				new Game("King's Field", "Action RPG, RPG, Adventure, Action, First Person", 1994, null, "ROM", PlayState.PLAYING, ps1)
+			);
+		
+		var rgm = gameRepository;
+		
+		rgm.saveAll(games);
+		
+		var mineirinho = new Game("Mineirinho Ultra Adventures", "Kusoge", null, 0, "Digital");
+		rgm.save(mineirinho);
 	}
 	
 
