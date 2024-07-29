@@ -71,12 +71,21 @@ public class CommandLineTesti implements CommandLineRunner {
 				new Game("King's Field", "Action RPG, RPG, Adventure, Action, First Person", 1994, null, "ROM", PlayState.PLAYING, ps1)
 			);
 		
+		
+		
 		var rgm = gameRepository;
 		
 		rgm.saveAll(games);
 		
 		var mineirinho = new Game("Mineirinho Ultra Adventures", "Kusoge", null, 0, "Digital");
 		rgm.save(mineirinho);
+		
+		games.get(0).setFavorite(true);
+		games.get(2).setFavorite(true);
+		games.get(4).setFavorite(true);
+		games.get(4).setFavorite(true);
+		rgm.saveAll(games);
+
 	}
 	
 

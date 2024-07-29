@@ -9,9 +9,16 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GameRepository extends CrudRepository<Game, Long> {
-	public List<Game> findByTitleContainsIgnoreCase(String title);
+	public List<Game> findAllByTitleContainsIgnoreCase(String title);
 	public Optional<Game> findFirstByTitleContainsIgnoreCase(String title);
 	
-	public List<Game> findByTitleContains(String title);
+	public List<Game> findAllByTitleContains(String title);
 	public Optional<Game> findFirstByTitleContains(String title);	
+	
+	public List<Game> findAllByGenreContainsIgnoreCase(String genre);
+	
+	public List<Game> findAllByOrderByScoreDesc();
+	public List<Game> findAllByFavoriteTrueOrderByScoreDesc();
+	
+	public List<Game> findAllByState(PlayState playState);
 }

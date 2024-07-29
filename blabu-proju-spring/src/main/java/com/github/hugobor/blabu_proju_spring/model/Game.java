@@ -45,6 +45,9 @@ public class Game {
 	@OnDelete(action = OnDeleteAction.SET_NULL)
 	private Platform platform;
 	
+	@Column(columnDefinition="BOOLEAN DEFAULT false")
+	private Boolean favorite = false;
+	
 	
 	public Game() {
 		super();
@@ -93,6 +96,9 @@ public class Game {
 	
 	public Platform getPlatform() { return platform; }
 	public void setPlatform(Platform platform) { this.platform = platform; }
+	
+	public Boolean isFavorite() { return favorite; }
+	public void setFavorite(Boolean favorite) { this.favorite = favorite; }
 
 	public Long getId() { return id; }
 
